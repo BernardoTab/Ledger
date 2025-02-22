@@ -1,4 +1,5 @@
 ﻿using Ledger.Services.Implementations.Common;
+using Ledger.Services.Implementations.Common.Validations;
 using Ledger.Services.Implementations.Transactions.Commands;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace Ledger.Services.Implementations.IoC
                 .AddClasses(classes => classes.AssignableToAny(typeof(ICommandHandler<>)))
                 .AsImplementedInterfaces()
                 .WithLifetime(ServiceLifetime.Transient));
+            services.Decorate(typeof(ICommandHandler<>), typeof(ValidatedCommandHandler<>));
         }
     }
 }

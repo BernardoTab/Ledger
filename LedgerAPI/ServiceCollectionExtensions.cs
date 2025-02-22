@@ -14,6 +14,7 @@ namespace Ledger
             services.AddSingleton<ILedgerContext, LedgerContext>();
             services.RegisterCommandHandlers();
             services.RegisterQueryHandlers();
+            services.RegisterValidators();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -25,7 +26,6 @@ namespace Ledger
             });
             services.AddControllers().AddNewtonsoftJson(options =>
             {
-                // Apply StringEnumConverter globally
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
         }
