@@ -26,8 +26,8 @@ If you want to run this simply via commands you'll need to download and install 
 
 Then, open the command line in the folder LedgerAPI, where the .csproj is, and run the following commands:
 
-`dotnet restore`
-`dotnet build`
+`dotnet restore`,
+`dotnet build`,
 `dotnet run`
 
 This should run your project and it should be listening on port 5015
