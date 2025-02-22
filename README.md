@@ -22,13 +22,13 @@ To build and run this you have two options, to use docker or just commands from 
 
 #### Commands
 
-If you want to run this via commands you'll need to download and install the .NET 8.0 SDK first
+If you want to run this simply via commands you'll need to download and install the .NET 8.0 SDK first
 
-Then, open the command line in the folder LedgerAPI and run the following commands:
+Then, open the command line in the folder LedgerAPI, where the .csproj is, and run the following commands:
 
-`dotnet restore
-dotnet build
-dotnet run`
+`dotnet restore`
+`dotnet build`
+`dotnet run`
 
 This should run your project and it should be listening on port 5015
 
