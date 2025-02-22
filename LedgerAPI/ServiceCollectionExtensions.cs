@@ -1,4 +1,5 @@
 ﻿using Ledger.DataTransferring.Transactions.Mappings;
+using Ledger.Services.Implementations.IoC;
 using Ledger.Services.Ledgers;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -11,6 +12,8 @@ namespace Ledger
         {
             services.AddAutoMapper(typeof(TransactionDtoMap).Assembly);
             services.AddSingleton<ILedgerContext, LedgerContext>();
+            services.RegisterCommandHandlers();
+            services.RegisterQueryHandlers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

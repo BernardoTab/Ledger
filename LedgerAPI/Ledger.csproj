@@ -16,6 +16,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Ledger.DataAccessContext\Ledger.DataAccessContext.csproj" />
     <ProjectReference Include="..\Ledger.DataTransferring\Ledger.DataTransferring.csproj" />
+    <ProjectReference Include="..\Ledger.Services.Implementations.IoC\Ledger.Services.Implementations.IoC.csproj" />
+    <ProjectReference Include="..\Ledger.Services.Implementations\Ledger.Services.Implementations.csproj" />
     <ProjectReference Include="..\Ledger.Services\Ledger.Services.csproj" />
   </ItemGroup>
 

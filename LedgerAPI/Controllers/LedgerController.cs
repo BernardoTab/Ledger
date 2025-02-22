@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Ledger.DataTransferring.Transactions;
 using Ledger.Entities.Transactions;
-using Ledger.Services.Ledgers;
+using Ledger.Services.Balances.Queries;
+using Ledger.Services.Implementations.Common;
+using Ledger.Services.Transactions.Commands;
+using Ledger.Services.Transactions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ledger.Controllers
@@ -11,35 +14,42 @@ namespace Ledger.Controllers
     public class LedgerController : ControllerBase
     {
         private readonly IMapper _dtoMapper;
-        private readonly ILedgerService _ledgerService;
 
         public LedgerController(
-            IMapper dtoMapper,
-            ILedgerService ledgerService)
+            IMapper dtoMapper)
         {
             _dtoMapper = dtoMapper;
-            _ledgerService = ledgerService;
         }
 
         [HttpGet("balance")]
-        public IActionResult GetBalance()
+        public IActionResult GetBalance(
+            [FromServices] IQueryHandler<GetBalanceQuery, decimal> getBalanceQueryHandler)
         {
-            decimal balance = _ledgerService.GetBalance();
+            GetBalanceQuery query = new GetBalanceQuery();
+            decimal balance = getBalanceQueryHandler.Handle(query);
             return Ok(balance);
         }
 
         [HttpPost("transactions")]
-        public IActionResult CreateTransaction(TransactionWriteDto transactionToWrite)
+        public IActionResult CreateTransaction(
+            TransactionWriteDto transactionToWrite,
+            [FromServices] ICommandHandler<CreateTransactionCommand> createTransactionCommandHandler)
         {
             Transaction transaction = _dtoMapper.Map<Transaction>(transactionToWrite);
-            Transaction result = _ledgerService.CreateTransaction(transaction);
-            return Ok(result);
+            CreateTransactionCommand command = new CreateTransactionCommand
+            {
+                Transaction = transaction
+            };
+            createTransactionCommandHandler.Handle(command);
+            return NoContent();
         }
 
         [HttpGet("transactions")]
-        public IActionResult GetTransactionHistory()
+        public IActionResult GetTransactionHistory(
+            [FromServices] IQueryHandler<GetTransactionHistoryQuery, ICollection<Transaction>> getTransactionHistoryQueryHandler)
         {
-            ICollection<Transaction> transactions = _ledgerService.GetTransactionHistory();
+            GetTransactionHistoryQuery query = new GetTransactionHistoryQuery();
+            ICollection<Transaction> transactions = getTransactionHistoryQueryHandler.Handle(query);
             ICollection<TransactionReadDto> transactionDtos = _dtoMapper.Map<ICollection<TransactionReadDto>>(transactions);
             return Ok(transactionDtos);
         }

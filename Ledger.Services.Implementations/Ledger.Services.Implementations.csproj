@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Balances\" />
-    <Folder Include="Transactions\" />
+    <ProjectReference Include="..\Ledger.DataAccessContext\Ledger.DataAccessContext.csproj" />
+    <ProjectReference Include="..\Ledger.Services\Ledger.Services.csproj" />
   </ItemGroup>
 
 </Project>

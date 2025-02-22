@@ -1,6 +1,10 @@
-﻿namespace Ledger.Services.Transactions.Commands
+﻿using Ledger.Entities.Transactions;
+using Ledger.Services.Common.Commands;
+
+namespace Ledger.Services.Transactions.Commands
 {
-    internal class CreateTransactionCommand
+    public class CreateTransactionCommand : ICommand
     {
+        public Transaction Transaction { get; set; }
     }
 }

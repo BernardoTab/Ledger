@@ -5,7 +5,7 @@ namespace Ledger.Services.Ledgers
     public interface ILedgerContext
     {
         decimal GetBalance();
-        Transaction CreateTransaction(Transaction transaction);
+        void CreateTransaction(Transaction transaction);
         ICollection<Transaction> GetTransactionHistory();
     }
 }
