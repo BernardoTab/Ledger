@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Ledger.DataTransferring.Transactions;
 using Ledger.Entities.Transactions;
-using Ledger.Services.Balances.Queries;
 using Ledger.Services.Implementations.Common;
 using Ledger.Services.Transactions.Commands;
 using Ledger.Services.Transactions.Queries;
@@ -11,26 +10,17 @@ namespace Ledger.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
-    public class LedgerController : ControllerBase
+    public class TransactionsController : ControllerBase
     {
         private readonly IMapper _dtoMapper;
 
-        public LedgerController(
+        public TransactionsController(
             IMapper dtoMapper)
         {
             _dtoMapper = dtoMapper;
         }
 
-        [HttpGet("balance")]
-        public IActionResult GetBalance(
-            [FromServices] IQueryHandler<GetBalanceQuery, decimal> getBalanceQueryHandler)
-        {
-            GetBalanceQuery query = new GetBalanceQuery();
-            decimal balance = getBalanceQueryHandler.Handle(query);
-            return Ok(balance);
-        }
-
-        [HttpPost("transactions")]
+        [HttpPost]
         public IActionResult CreateTransaction(
             TransactionWriteDto transactionToWrite,
             [FromServices] ICommandHandler<CreateTransactionCommand> createTransactionCommandHandler)
@@ -44,7 +34,7 @@ namespace Ledger.Controllers
             return NoContent();
         }
 
-        [HttpGet("transactions")]
+        [HttpGet]
         public IActionResult GetTransactionHistory(
             [FromServices] IQueryHandler<GetTransactionHistoryQuery, ICollection<Transaction>> getTransactionHistoryQueryHandler)
         {
