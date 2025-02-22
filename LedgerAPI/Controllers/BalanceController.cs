@@ -9,11 +9,11 @@ namespace Ledger.Controllers
     public class BalanceController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetBalance(
+        public async Task<IActionResult> GetBalanceAsync(
             [FromServices] IQueryHandler<GetBalanceQuery, decimal> getBalanceQueryHandler)
         {
             GetBalanceQuery query = new GetBalanceQuery();
-            decimal balance = getBalanceQueryHandler.Handle(query);
+            decimal balance = await getBalanceQueryHandler.HandleAsync(query);
             return Ok(balance);
         }
     }

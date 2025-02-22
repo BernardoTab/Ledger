@@ -14,9 +14,9 @@ namespace Ledger.Services.Implementations.Balances.Queries
             _dataContext = dataContext;
         }
 
-        public decimal Handle(GetBalanceQuery query)
+        public async Task<decimal> HandleAsync(GetBalanceQuery query)
         {
-            return _dataContext.GetBalance();
+            return await Task.FromResult<decimal>(_dataContext.GetBalance());
         }
     }
 }

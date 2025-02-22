@@ -5,6 +5,6 @@ namespace Ledger.Services.Implementations.Common.Validations
     public interface ICommandValidator<TCommand>
         where TCommand : ICommand
     {
-        void Validate(TCommand command);
+        Task ValidateAsync(TCommand command);
     }
 }

@@ -16,10 +16,10 @@ namespace Ledger.Services.Implementations.Common.Validations
             _queryHandler = queryHandler;
         }
 
-        public TResult Handle(TQuery command)
+        public async Task<TResult> HandleAsync(TQuery command)
         {
-            _queryValidator.Validate(command);
-            return _queryHandler.Handle(command);
+            await _queryValidator.ValidateAsync(command);
+            return await _queryHandler.HandleAsync(command);
         }
     }
 }

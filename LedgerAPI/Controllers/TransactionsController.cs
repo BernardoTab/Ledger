@@ -21,7 +21,7 @@ namespace Ledger.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTransaction(
+        public async Task<IActionResult> CreateTransactionAsync(
             TransactionWriteDto transactionToWrite,
             [FromServices] ICommandHandler<CreateTransactionCommand> createTransactionCommandHandler)
         {
@@ -30,16 +30,16 @@ namespace Ledger.Controllers
             {
                 Transaction = transaction
             };
-            createTransactionCommandHandler.Handle(command);
+            await createTransactionCommandHandler.HandleAsync(command);
             return NoContent();
         }
 
         [HttpGet]
-        public IActionResult GetTransactionHistory(
+        public async Task<IActionResult> GetTransactionHistoryAsync(
             [FromServices] IQueryHandler<GetTransactionHistoryQuery, ICollection<Transaction>> getTransactionHistoryQueryHandler)
         {
             GetTransactionHistoryQuery query = new GetTransactionHistoryQuery();
-            ICollection<Transaction> transactions = getTransactionHistoryQueryHandler.Handle(query);
+            ICollection<Transaction> transactions = await getTransactionHistoryQueryHandler.HandleAsync(query);
             ICollection<TransactionReadDto> transactionDtos = _dtoMapper.Map<ICollection<TransactionReadDto>>(transactions);
             return Ok(transactionDtos);
         }

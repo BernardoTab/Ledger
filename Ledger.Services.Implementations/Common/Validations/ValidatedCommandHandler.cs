@@ -16,10 +16,10 @@ namespace Ledger.Services.Implementations.Common.Validations
             _commandHandler = commandHandler;
         }
 
-        public void Handle(TCommand command)
+        public async Task HandleAsync(TCommand command)
         {
-            _commandValidator.Validate(command);
-            _commandHandler.Handle(command);
+            await _commandValidator.ValidateAsync(command);
+            await _commandHandler.HandleAsync(command);
         }
     }
 }

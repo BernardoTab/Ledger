@@ -6,11 +6,13 @@ namespace Ledger.Services.Implementations.Balances.Queries.Validators
     public class GetBalanceQueryValidator :
         IQueryValidator<GetBalanceQuery, decimal>
     {
-        private GetBalanceQuery _query;
-
-        public void Validate(GetBalanceQuery query)
+        public async Task ValidateAsync(GetBalanceQuery query)
         {
-            _query = query ?? throw new ArgumentNullException(nameof(query));
+            if (query == default)
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+            await Task.CompletedTask;
         }
     }
 }

@@ -8,10 +8,11 @@ namespace Ledger.Services.Implementations.Transactions.EntityValidators
     {
         private Transaction _transaction;
 
-        public void Validate(Transaction transaction)
+        public async Task ValidateAsync(Transaction transaction)
         {
             _transaction = transaction;
             ValidateProperties();
+            await Task.CompletedTask;
         }
 
         private void ValidateProperties()

@@ -17,9 +17,9 @@ namespace Ledger.Services.Implementations.Transactions.Queries
             _dataContext = dataContext;
         }
 
-        public ICollection<Transaction> Handle(GetTransactionHistoryQuery query)
+        public async Task<ICollection<Transaction>> HandleAsync(GetTransactionHistoryQuery query)
         {
-            return _dataContext.GetTransactionHistory();
+            return await Task.FromResult(_dataContext.GetTransactionHistory());
         }
     }
 }

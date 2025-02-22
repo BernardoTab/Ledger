@@ -15,11 +15,12 @@ namespace Ledger.Services.Implementations.Transactions.Commands
             _dataContext = dataContext;
         }
 
-        public void Handle(CreateTransactionCommand command)
+        public async Task HandleAsync(CreateTransactionCommand command)
         {
             Transaction transaction = command.Transaction;
             ValidateTransactionEffectOnBalance(transaction);
             _dataContext.CreateTransaction(transaction);
+            await Task.CompletedTask;
         }
 
         private void ValidateTransactionEffectOnBalance(Transaction transaction)

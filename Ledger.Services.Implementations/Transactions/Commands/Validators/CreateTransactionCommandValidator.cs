@@ -16,18 +16,18 @@ namespace Ledger.Services.Implementations.Transactions.Commands.Validators
             _transactionValidator = transactionValidator;
         }
 
-        public void Validate(CreateTransactionCommand command)
+        public async Task ValidateAsync(CreateTransactionCommand command)
         {
             _command = command ?? throw new ArgumentNullException(nameof(command));
-            ValidateProperties();
+            await ValidatePropertiesAsync();
         }
 
-        private void ValidateProperties()
+        private async Task ValidatePropertiesAsync()
         {
-            ValidateTransaction();
+            await ValidateTransactionAsync();
         }
 
-        private void ValidateTransaction()
+        private async Task ValidateTransactionAsync()
         {
             if (_command.Transaction == default)
             {
@@ -35,7 +35,7 @@ namespace Ledger.Services.Implementations.Transactions.Commands.Validators
                     nameof(Transaction),
                     nameof(CreateTransactionCommand));
             }
-            _transactionValidator.Validate(_command.Transaction);
+            await _transactionValidator.ValidateAsync(_command.Transaction);
         }
     }
 }

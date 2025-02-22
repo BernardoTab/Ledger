@@ -5,6 +5,6 @@ namespace Ledger.Services.Implementations.Common.Validations
     public interface IEntityValidator<TEntity>
         where TEntity : Entity
     {
-        void Validate(TEntity entity);
+        Task ValidateAsync(TEntity entity);
     }
 }
