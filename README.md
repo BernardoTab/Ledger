@@ -54,7 +54,7 @@ http://localhost:8080/api/transactions
 To get your current balance, simply send a GET request to the Balance endpoint.
 To view the transaction history, send a GET to the Transactions endpoint.
 
-To create a transaction, send a POST request to the Transactions endpoint and in the body you should send a dto in this format:
+To create a transaction, send a POST request to the Transactions endpoint and in the body you should send a json dto in this format:
 `{
 	value: X,
 	type: Y
@@ -74,3 +74,9 @@ Here are some concrete examples:
 	value: 1000.5,
 	type: "Withdrawal"
 }`
+
+Therefore some practical examples of requests could be
+
+GET http://localhost:8080/api/transactions
+GET http://localhost:8080/api/balance
+POST http://localhost:8080/api/transactions with one of these json aforementioned
