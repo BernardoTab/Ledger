@@ -24,7 +24,7 @@ To build and run this you have two options, to use docker or just commands from 
 
 If you want to run this simply via commands you'll need to download and install the .NET 8.0 SDK first
 
-Then, open the command line in the folder LedgerAPI, where the .csproj is, and run the following commands:
+Then, open the command line in the folder LedgerAPI, where the .csproj is, and run the following commands in order:
 
 `dotnet restore`,
 `dotnet build`,
