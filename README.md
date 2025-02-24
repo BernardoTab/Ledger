@@ -4,7 +4,7 @@ Here are some assumptions I made along the way, if they were wrong please tell m
 
 ## Assumptions
 
-- I interpreted from what was said in the PDF that nothing was to be persisted between runs, as such, I did not create a DBContext and rely on a database. I've kept all data using an array as was suggested so it lasts only during runtime. I had considered using EF Core's in-memory database so that it would be similar to querying an actual database but was not sure if that was what was intended
+- I interpreted from what was said in the PDF that nothing was to be persisted between runs, as such, I did not create a DBContext and rely on a database. I've kept the data stored in a class called LedgerContext to sort of mimic a DbContext, I could have also used a normal DbContext and opted for In-Memory fromm EFCore but I thought this would keep things simpler.
 - In the PDF it is said that you expect "a set of APIs", I interpreted that as a set of API endpoints as it seemed to me like an overkill to have 2+ API applications communicating with each other for this use case
 - The previous assumption goes along with the request that we should not need to install any optional software, meaning that RabbitMQ or Kafka are not an option so I'd have to rely on some messaging alternative which could make things complicated
 - Given this I assumed that a single web application was requested with perhaps 1-2 controllers and 3 endpoints based on the features, the BalanceController is a bit unnecessary but I created it to keep things organized
