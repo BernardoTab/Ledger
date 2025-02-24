@@ -59,7 +59,7 @@ namespace Ledger.Services.Implementations.Transactions.EntityValidators
             if (_transaction.CreatedDate == default)
             {
                 throw new MissingRequiredPropertyException(
-                    nameof(Transaction.Id),
+                    nameof(Transaction.CreatedDate),
                     nameof(Transaction));
             }
         }
