@@ -80,3 +80,11 @@ Therefore some practical examples of requests could be
 GET http://localhost:8080/api/transactions
 GET http://localhost:8080/api/balance
 POST http://localhost:8080/api/transactions with one of these json aforementioned
+
+## Tests
+
+I only included a select few tests to exemplify how I'd do them, usually I'd set up a custom WebApplicationFactory if we persisted data and a few other custom classes to run GETS and POSTS without hardcoded uris.
+
+I also couldn't test exceptions in the AcceptanceTests because I didn't create exception handling middleware to propagate them
+
+To run them you can either move into the project folder and use `dotnet test` (if you have the dotnet sdk installed) in the cmd or run them on, for example, Visual Studio in the solution explorer

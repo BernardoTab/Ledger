@@ -1,6 +1,6 @@
-﻿using Ledger.DataTransferring.Transactions;
+﻿using Ledger.AcceptanceTests.Common;
+using Ledger.DataTransferring.Transactions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -26,12 +26,27 @@ namespace Ledger.AcceptanceTests.Controllers
         }
 
         [TestMethod]
-        public async Task GetTransactions_ReturnsSuccess()
+        public async Task CreateTransaction_NoResponse()
         {
-            // Arrange
             TransactionWriteDto expectedTransaction = new TransactionWriteDto
             {
-                Id = Guid.NewGuid(),
+                Value = 5,
+                Type = TransactionTypeDto.Deposit
+            };
+
+            string endpointUri = "/api/transactions";
+            string jsonPayload = JsonConvert.SerializeObject(expectedTransaction);
+            HttpContent content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsync(endpointUri, content);
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetTransactions_ReturnsSuccess()
+        {
+            TransactionWriteDto expectedTransaction = new TransactionWriteDto
+            {
                 Value = 5,
                 Type = TransactionTypeDto.Deposit
             };
@@ -40,14 +55,13 @@ namespace Ledger.AcceptanceTests.Controllers
             HttpContent content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(endpointUri, content);
 
-            // Act
             response = await _client.GetAsync(endpointUri);
             string responseBody = await response.Content.ReadAsStringAsync();
             ICollection<TransactionReadDto> transactionsFromResponse = JsonConvert.DeserializeObject<ICollection<TransactionReadDto>>(responseBody)!;
 
-            // Assert
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(1, transactionsFromResponse.Count);
+            Assert.That.AreEqualExcludingProperties(expectedTransaction, transactionsFromResponse.Single());
         }
     }
 }
